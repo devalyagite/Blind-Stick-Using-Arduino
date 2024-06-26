@@ -1,0 +1,55 @@
+#define trigPin  9
+#define echoPin 8
+
+#define Buzzer1 5//active
+#define motor 7//passive
+//#define Led1 6//Vibration
+
+ 
+int sound = 250;
+
+
+void setup() {
+  Serial.begin (9600);
+ pinMode(trigPin, OUTPUT);
+ pinMode(echoPin, INPUT);
+  pinMode(Buzzer1, OUTPUT);
+ pinMode(motor, OUTPUT);
+// pinMode(Led1, OUTPUT);
+}
+
+void  loop() {
+  Serial.begin(9600);
+
+  long duration, distance;
+  digitalWrite(trigPin,  LOW);
+  delay(2);
+  digitalWrite(trigPin, HIGH);
+  delay(10);
+  digitalWrite(trigPin,  LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration/2) / 29.1;
+  delay(300);
+  digitalWrite(Buzzer1, LOW);
+  digitalWrite(motor, LOW);
+//  digitalWrite(Led1,  LOW);
+  Serial.println(distance);
+  if (distance<40&& distance>20) {
+//    digitalWrite(Led1, HIGH);
+    delay(2000);
+  }
+  if (distance<20&& distance>10) {
+//    digitalWrite(Led1, HIGH);
+    delay(2000);
+    digitalWrite(Buzzer1, HIGH);
+    delay(2000);
+  }
+  if (distance<10)  {
+//    digitalWrite(Led1, HIGH);
+    delay(2000);
+    digitalWrite(Buzzer1,  HIGH);
+    delay(2000);
+    digitalWrite(motor, HIGH);
+    delay(2000);
+  }
+  }
